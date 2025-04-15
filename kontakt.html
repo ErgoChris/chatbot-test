@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kontakt – Ergotopia</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f7fa;
+      padding: 40px;
+      color: #333;
+    }
+
+    nav a {
+      margin-right: 20px;
+      text-decoration: none;
+      color: #007ACC;
+      font-weight: bold;
+    }
+
+    .form-wrapper {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      padding: 40px;
+    }
+
+    h1 {
+      color: #007ACC;
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+
+    input,
+    textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 8px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: inherit;
+    }
+
+    input[type="submit"] {
+      background-color: #007ACC;
+      color: white;
+      border: none;
+      cursor: pointer;
+      margin-top: 30px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #005fa3;
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="index.html">Startseite</a>
+    <a href="kontakt.html">Kontakt</a>
+  </nav>
+
+  <div class="form-wrapper">
+    <h1>Kontaktieren Sie uns</h1>
+    <p>Schreiben Sie uns gerne – wir helfen schnell weiter.</p>
+
+    <!-- Kontaktformular mit echtem Formspree-Link -->
+    <form action="https://formspree.io/f/moqgkjvy" method="POST">
+      <label for="name">Ihr Name</label>
+      <input type="text" id="name" name="name" required />
+
+      <label for="email">Ihre E-Mail</label>
+      <input type="email" id="email" name="_replyto" required />
+
+      <label for="nachricht">Nachricht</label>
+      <textarea id="nachricht" class="userlike-analyze" name="message" placeholder="Was möchten Sie wissen?" required></textarea>
+
+      <input type="submit" class="userlike-submit" value="Absenden" />
+    </form>
+  </div>
+
+  <!-- Userlike Form Suggests Integration -->
+  <div id="userlike-contact-container"
+       data-userlike-contact-account="https://147398-144842.userlike-automation.com"
+       data-userlike-contact-api-key="CO-1e4043c4-5a48-49fd-aad6-c1b88bb0ea72"
+       data-userlike-contact-analyze=".userlike-analyze"
+       data-userlike-contact-submit=".userlike-submit">
+  </div>
+
+  <script async src="https://147398-144842.userlike-automation.com/contact/contact.min.js"></script>
+
+</body>
+</html>
