@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>FAQ – Ergotopia</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f4f6f9;
+      margin: 0;
+      padding: 0;
+    }
+    nav {
+      background-color: #007ACC;
+      padding: 15px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+    main {
+      padding: 40px;
+      max-width: 800px;
+      margin: auto;
+    }
+    h1 {
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    /* Optional: Begrenzung für den FAQ-Container */
+    #userlike-help-container {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html">Startseite</a>
+    <a href="kontakt.html">Kontakt</a>
+    <a href="faq.html">FAQ</a>
+  </nav>
+
+  <main>
+    <h1>Häufige Fragen (FAQ)</h1>
+    <p>Hier findest du Antworten auf die häufigsten Fragen rund um unsere Produkte, Rücksendungen, Versand u. v. m.</p>
+
+    <!-- Smart FAQ Integration -->
+    <div id="userlike-help-container"
+         data-userlike-help-account="https://147398-144842.userlike-automation.com" 
+         data-userlike-help-api-key="HE-30cb807b-677d-47b3-af5e-a6f49fb03365">
+    </div>
+
+    <script async type="application/javascript"
+            src="https://147398-144842.userlike-automation.com/help/help.min.js">
+    </script>
+  </main>
+
+</body>
+</html>
