@@ -68,6 +68,15 @@
     input[type="submit"]:hover {
       background-color: #005fa3;
     }
+
+    .success-message {
+      background-color: #e0ffe0;
+      color: #2a7a2a;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 8px;
+      display: none;
+    }
   </style>
 </head>
 <body>
@@ -81,8 +90,7 @@
     <h1>Kontaktieren Sie uns</h1>
     <p>Schreiben Sie uns gerne – wir helfen schnell weiter.</p>
 
-    <!-- Kontaktformular mit echtem Formspree-Link -->
-    <form action="https://formspree.io/f/moqgkjvy" method="POST">
+    <form id="kontaktform" onsubmit="return false;">
       <label for="name">Ihr Name</label>
       <input type="text" id="name" name="name" required />
 
@@ -92,11 +100,49 @@
       <label for="nachricht">Nachricht</label>
       <textarea id="nachricht" class="userlike-analyze" name="message" placeholder="Was möchten Sie wissen?" required></textarea>
 
+      <label>
+        <input type="checkbox" required />
+        Ich akzeptiere die <a href="https://ergotopia.de/datenschutz" target="_blank">Datenschutzerklärung</a>.
+      </label>
+
       <input type="submit" class="userlike-submit" value="Absenden" />
+      <div class="success-message" id="successMessage">Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet.</div>
     </form>
   </div>
 
-  <!-- Userlike Form Suggests Integration -->
+  <!-- Userlike Form Suggests -->
   <div id="userlike-contact-container"
        data-userlike-contact-account="https://147398-144842.userlike-automation.com"
-       data-userlike-contact-api-key="CO-1e4043c4-5a48-49fd
+       data-userlike-contact-api-key="CO-1e4043c4-5a48-49fd-aad6-c1b88bb0ea72"
+       data-userlike-contact-analyze=".userlike-analyze"
+       data-userlike-contact-submit=".userlike-submit">
+  </div>
+  <script async src="https://147398-144842.userlike-automation.com/contact/contact.min.js"></script>
+
+  <!-- Formspree + Suggest Delay -->
+  <script>
+    document.querySelector('.userlike-submit').addEventListener('click', function (e) {
+      e.preventDefault();
+      const form = document.getElementById('kontaktform');
+      const formData = new FormData(form);
+      const xhr = new XMLHttpRequest();
+
+      // Delay for Suggests to show up
+      setTimeout(() => {
+        xhr.open("POST", "https://formspree.io/f/moqgkjvy", true);
+        xhr.setRequestHeader("Accept", "application/json");
+        xhr.onload = function () {
+          if (xhr.status === 200) {
+            document.getElementById("successMessage").style.display = "block";
+            form.reset();
+          } else {
+            alert("Es ist ein Fehler aufgetreten. Bitte versuchen Sie es später erneut.");
+          }
+        };
+        xhr.send(formData);
+      }, 1000);
+    });
+  </script>
+
+</body>
+</html>
