@@ -32,7 +32,6 @@
       border-radius: 16px;
       padding: 40px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-      position: relative;
     }
 
     h1 {
@@ -69,8 +68,8 @@
       margin-top: 20px;
     }
 
-    .userlike-contact-suggest-container {
-      margin-top: 10px;
+    .userlike-suggest-container {
+      margin-top: 8px;
     }
 
     .success-message {
@@ -104,6 +103,9 @@
       <label for="message">Nachricht</label>
       <textarea class="userlike-analyze" name="message" id="message" required></textarea>
 
+      <!-- Platzhalter für Suggestions direkt darunter -->
+      <div id="userlike-suggestions" class="userlike-suggest-container"></div>
+
       <input type="submit" class="userlike-submit" value="Absenden" />
       <div class="success-message" id="successMessage">Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet.</div>
     </form>
@@ -119,8 +121,19 @@
 
   <script async src="https://147398-144842.userlike-automation.com/contact/contact.min.js"></script>
 
-  <!-- Formspree mit Form Suggests -->
+  <!-- Script, das den Suggestion-Container verschiebt -->
   <script>
+    const relocateSuggestions = () => {
+      const target = document.querySelector('#userlike-suggestions');
+      const suggestionBox = document.querySelector('.userlike-contact-suggestions');
+      if (target && suggestionBox && !target.contains(suggestionBox)) {
+        target.appendChild(suggestionBox);
+      }
+    };
+
+    const observer = new MutationObserver(() => relocateSuggestions());
+    observer.observe(document.body, { childList: true, subtree: true });
+
     document.querySelector('#kontaktform').addEventListener('submit', function (e) {
       e.preventDefault();
 
