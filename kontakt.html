@@ -3,123 +3,81 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kontakt – Ergotopia</title>
+  <title>Kontakt mit Form Suggests</title>
   <style>
+    /* Navigation & Grundlayout */
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #f5f7fa;
-      margin: 0;
-      padding: 0;
-      color: #333;
+      font-family: sans-serif;
+      background-color: #f4f6f9;
+      padding: 40px;
+      max-width: 600px;
+      margin: auto;
     }
-
     nav {
-      background-color: #007ACC;
-      padding: 15px;
+      background: #007ACC;
+      padding: 10px;
+      margin-bottom: 20px;
+      text-align: center;
     }
-
     nav a {
       color: white;
-      margin-right: 20px;
       text-decoration: none;
-      font-weight: bold;
+      margin: 0 15px;
+      font-size: 18px;
     }
-
-    .form-wrapper {
-      max-width: 600px;
-      margin: 40px auto;
-      background-color: white;
-      border-radius: 16px;
-      padding: 40px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-    }
-
+    /* Formular */
     h1 {
-      color: #007ACC;
       font-size: 28px;
       margin-bottom: 10px;
     }
-
     input, textarea {
       width: 100%;
-      padding: 12px;
+      padding: 10px;
       margin-top: 10px;
       font-size: 16px;
+      border-radius: 6px;
       border: 1px solid #ccc;
-      border-radius: 8px;
-      font-family: inherit;
     }
-
     input[type="submit"] {
-      background-color: #007ACC;
+      background: #007ACC;
       color: white;
       border: none;
       cursor: pointer;
-      margin-top: 30px;
-    }
-
-    input[type="submit"]:hover {
-      background-color: #005fa3;
-    }
-
-    label {
-      font-weight: bold;
-      display: block;
       margin-top: 20px;
     }
-
-    .userlike-suggest-container {
-      margin-top: 8px;
-    }
-
-    .success-message {
-      background-color: #e0ffe0;
-      color: #2a7a2a;
-      padding: 15px;
-      margin-top: 20px;
-      border-radius: 8px;
-      display: none;
-    }
-        .userlike-contact-suggestions {
-      max-width: 100%;
+    /* Platzhalter für Suggests direkt unter dem Textfeld */
+    #suggestions-placeholder {
       margin-top: 10px;
-      margin-bottom: -1000px;
-      position: relative !important;
-      top: -350px !important;
     }
-
   </style>
 </head>
 <body>
-
+  <!-- Navigation -->
   <nav>
     <a href="index.html">Startseite</a>
     <a href="kontakt.html">Kontakt</a>
   </nav>
 
-  <div class="form-wrapper">
-    <h1>Kontaktieren Sie uns</h1>
-    <p>Unsere KI hilft Ihnen sofort – oder wir melden uns per E-Mail. Mail muss nicht abgesendet werden, um die Form Suggests zu testen – kommt eh eine Fehlermeldung :D</p>
+  <h1>Kontaktformular</h1>
+  <p>Stellen Sie Ihre Frage – unsere KI hilft Ihnen sofort.</p>
 
-    <form id="kontaktform">
-      <label for="name">Name</label>
-      <input type="text" name="name" required />
+  <form id="kontaktform">
+    <label for="name">Name</label>
+    <input type="text" name="name" required>
 
-      <label for="email">E-Mail</label>
-      <input type="email" name="_replyto" required />
+    <label for="email">E-Mail</label>
+    <input type="email" name="_replyto" required>
 
-      <label for="message">Nachricht</label>
-      <textarea class="userlike-analyze" name="message" id="message" required></textarea>
+    <label for="message">Nachricht</label>
+    <textarea class="userlike-analyze" name="message" id="message" required></textarea>
 
-      <!-- Platzhalter für Suggestions direkt darunter -->
-      <div id="userlike-suggestions" class="userlike-suggest-container"></div>
+    <!-- Hier soll der Suggestions-Container erscheinen -->
+    <div id="suggestions-placeholder"></div>
 
-      <input type="submit" class="userlike-submit" value="Absenden" />
-      <div class="success-message" id="successMessage">Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet.</div>
-    </form>
-  </div>
+    <input type="submit" class="userlike-submit" value="Absenden">
+  </form>
 
-  <!-- Userlike Form Suggests Integration -->
+  <!-- Userlike Integration – bleibt unverändert -->
   <div id="userlike-contact-container"
        data-userlike-contact-account="https://147398-144842.userlike-automation.com"
        data-userlike-contact-api-key="CO-1e4043c4-5a48-49fd-aad6-c1b88bb0ea72"
@@ -129,33 +87,20 @@
 
   <script async src="https://147398-144842.userlike-automation.com/contact/contact.min.js"></script>
 
-  <!-- Script, das den Suggestion-Container verschiebt -->
+  <!-- Formular-Submit: Form Suggests wird ausgelöst, danach wird per Formspree gesendet -->
   <script>
-    const relocateSuggestions = () => {
-      const target = document.querySelector('#userlike-suggestions');
-      const suggestionBox = document.querySelector('.userlike-contact-suggestions');
-      if (target && suggestionBox && !target.contains(suggestionBox)) {
-        target.appendChild(suggestionBox);
-      }
-    };
-
-    const observer = new MutationObserver(() => relocateSuggestions());
-    observer.observe(document.body, { childList: true, subtree: true });
-
-    document.querySelector('#kontaktform').addEventListener('submit', function (e) {
+    document.querySelector('#kontaktform').addEventListener('submit', function(e) {
       e.preventDefault();
-
       window.UserlikeContact.submit().then(() => {
         const form = e.target;
         const formData = new FormData(form);
-
         fetch("https://formspree.io/f/moqgkjvy", {
           method: "POST",
           body: formData,
           headers: { "Accept": "application/json" }
         }).then(response => {
           if (response.ok) {
-            document.getElementById("successMessage").style.display = "block";
+            alert("Nachricht gesendet. Vielen Dank!");
             form.reset();
           } else {
             alert("Fehler beim Senden der Nachricht.");
@@ -163,7 +108,19 @@
         });
       });
     });
-  </script>
 
+    // MutationObserver: Sobald Userlike seinen Suggestion-Container rendert,
+    // wird er in unseren Platzhalter (#suggestions-placeholder) verschoben.
+    const relocateSuggestions = () => {
+      const placeholder = document.querySelector("#suggestions-placeholder");
+      const sugg = document.querySelector(".userlike-contact-suggestions");
+      if (placeholder && sugg) {
+        placeholder.innerHTML = "";
+        placeholder.appendChild(sugg);
+      }
+    };
+    const observer = new MutationObserver(relocateSuggestions);
+    observer.observe(document.body, { childList: true, subtree: true });
+  </script>
 </body>
 </html>
