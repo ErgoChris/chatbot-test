@@ -3,91 +3,101 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Kontakt mit Form Suggests</title>
+  <title>Kontakt – Ergotopia Chat</title>
   <style>
-    /* Navigation & Grundlayout */
+    /* Einheitlicher Stil – wie bei der Startseite */
     body {
-      font-family: sans-serif;
+      font-family: 'Segoe UI', sans-serif;
       background-color: #f4f6f9;
-      padding: 40px;
+      margin: 0;
+      padding: 0;
       max-width: 600px;
-      margin: auto;
+      margin-left: auto;
+      margin-right: auto;
     }
     nav {
-      background: #007ACC;
-      padding: 10px;
-      margin-bottom: 20px;
+      background-color: #007ACC;
+      padding: 15px;
       text-align: center;
     }
     nav a {
       color: white;
       text-decoration: none;
       margin: 0 15px;
+      font-weight: bold;
       font-size: 18px;
     }
-    /* Formular */
-    h1 {
-      font-size: 28px;
-      margin-bottom: 10px;
+    main {
+      padding: 40px;
     }
-    input, textarea {
+    /* Formular-Styling */
+    form {
+      max-width: 100%;
+    }
+    form label {
+      display: block;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    form input, form textarea {
       width: 100%;
       padding: 10px;
       margin-top: 10px;
       font-size: 16px;
-      border-radius: 6px;
       border: 1px solid #ccc;
+      border-radius: 6px;
     }
-    input[type="submit"] {
+    form input[type="submit"] {
       background: #007ACC;
       color: white;
       border: none;
       cursor: pointer;
       margin-top: 20px;
     }
-    /* Platzhalter für Suggests direkt unter dem Textfeld */
+    /* Platzhalter für die Suggestions */
     #suggestions-placeholder {
       margin-top: 10px;
     }
   </style>
 </head>
 <body>
-  <!-- Navigation -->
+  <!-- Navigation – identisch zur Startseite -->
   <nav>
     <a href="index.html">Startseite</a>
     <a href="kontakt.html">Kontakt</a>
   </nav>
 
-  <h1>Kontaktformular</h1>
-  <p>Stellen Sie Ihre Frage – unsere KI hilft Ihnen sofort.</p>
-
-  <form id="kontaktform">
-    <label for="name">Name</label>
-    <input type="text" name="name" required>
-
-    <label for="email">E-Mail</label>
-    <input type="email" name="_replyto" required>
-
-    <label for="message">Nachricht</label>
-    <textarea class="userlike-analyze" name="message" id="message" required></textarea>
-
-    <!-- Hier soll der Suggestions-Container erscheinen -->
-    <div id="suggestions-placeholder"></div>
-
-    <input type="submit" class="userlike-submit" value="Absenden">
-  </form>
-
-  <!-- Userlike Integration – bleibt unverändert -->
+  <main>
+    <h1>Kontaktieren Sie uns</h1>
+    <p>Stellen Sie Ihre Frage – unsere KI hilft Ihnen sofort.</p>
+    
+    <form id="kontaktform">
+      <label for="name">Name</label>
+      <input type="text" name="name" required>
+      
+      <label for="email">E-Mail</label>
+      <input type="email" name="_replyto" required>
+      
+      <label for="message">Nachricht</label>
+      <textarea class="userlike-analyze" name="message" id="message" required></textarea>
+      
+      <!-- Platzhalter, in den Userlike den Suggestions-Container verschieben soll -->
+      <div id="suggestions-placeholder"></div>
+      
+      <input type="submit" class="userlike-submit" value="Absenden">
+    </form>
+  </main>
+  
+  <!-- Userlike Integration (bleibt unverändert) -->
   <div id="userlike-contact-container"
        data-userlike-contact-account="https://147398-144842.userlike-automation.com"
        data-userlike-contact-api-key="CO-1e4043c4-5a48-49fd-aad6-c1b88bb0ea72"
        data-userlike-contact-analyze=".userlike-analyze"
        data-userlike-contact-submit=".userlike-submit">
   </div>
-
   <script async src="https://147398-144842.userlike-automation.com/contact/contact.min.js"></script>
-
-  <!-- Formular-Submit: Form Suggests wird ausgelöst, danach wird per Formspree gesendet -->
+  
+  <!-- Formular-Submit: Zuerst Form Suggests triggern, dann den Submit (z.B. an Formspree) ausführen -->
   <script>
     document.querySelector('#kontaktform').addEventListener('submit', function(e) {
       e.preventDefault();
@@ -108,9 +118,10 @@
         });
       });
     });
-
-    // MutationObserver: Sobald Userlike seinen Suggestion-Container rendert,
-    // wird er in unseren Platzhalter (#suggestions-placeholder) verschoben.
+    
+    // MutationObserver: Sobald der von Userlike generierte Suggestions-Container 
+    // (mit der Klasse .userlike-contact-suggestions) im DOM auftaucht,
+    // verschieben wir ihn in unseren Platzhalter (#suggestions-placeholder)
     const relocateSuggestions = () => {
       const placeholder = document.querySelector("#suggestions-placeholder");
       const sugg = document.querySelector(".userlike-contact-suggestions");
