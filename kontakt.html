@@ -32,6 +32,7 @@
       border-radius: 16px;
       padding: 40px;
       box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+      position: relative;
     }
 
     h1 {
@@ -55,7 +56,7 @@
       color: white;
       border: none;
       cursor: pointer;
-      margin-top: 20px;
+      margin-top: 30px;
     }
 
     input[type="submit"]:hover {
@@ -66,6 +67,10 @@
       font-weight: bold;
       display: block;
       margin-top: 20px;
+    }
+
+    .userlike-contact-suggest-container {
+      margin-top: 10px;
     }
 
     .success-message {
@@ -87,7 +92,7 @@
 
   <div class="form-wrapper">
     <h1>Kontaktieren Sie uns</h1>
-    <p>Unsere KI hilft Ihnen sofort – oder wir melden uns per E-Mail. Mail muss nicht abgesendet werden, um die Form Suggests zu testen - kommt eh eine Fehlermeldung :D </p>
+    <p>Unsere KI hilft Ihnen sofort – oder wir melden uns per E-Mail. Mail muss nicht abgesendet werden, um die Form Suggests zu testen – kommt eh eine Fehlermeldung :D</p>
 
     <form id="kontaktform">
       <label for="name">Name</label>
@@ -98,11 +103,6 @@
 
       <label for="message">Nachricht</label>
       <textarea class="userlike-analyze" name="message" id="message" required></textarea>
-
-      <label>
-        <input type="checkbox" required />
-        Ich akzeptiere die <a href="https://ergotopia.de/datenschutz" target="_blank">Datenschutzerklärung</a>.
-      </label>
 
       <input type="submit" class="userlike-submit" value="Absenden" />
       <div class="success-message" id="successMessage">Vielen Dank! Ihre Nachricht wurde erfolgreich gesendet.</div>
